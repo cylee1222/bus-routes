@@ -36,7 +36,10 @@ async function main(){
     await renderRoutes(await loadAllRoutes())
 
     let s = document.getElementById('search')
-    s.addEventListener('input', e => checkInput(e))
+    s.addEventListener('input', e => {
+        e.target.value = e.target.value.toUpperCase()
+        checkInput(e)
+    })
 }
 
 window.onload = main
