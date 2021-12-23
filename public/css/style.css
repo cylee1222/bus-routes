@@ -4,5 +4,5 @@ body {
 
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 10%);
+  grid-template-columns: 10% 40% repeat(auto-fill, 25%);
 }

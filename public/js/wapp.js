@@ -1,26 +1,48 @@
 async function loadAllRoutes(){
     const res = await fetch('https://data.etabus.gov.hk/v1/transport/kmb/route')
     const res_json = await res.json()
-    const routes = res_json.data.map(res => res.route).filter((value, i, array) => array.indexOf(value) === i)
+    const filter_route = {
+        "service_type": "1",
+        "bound": "O"
+    }
+    const routes = res_json.data.filter(route => {
+        for(let key in filter_route){
+            if(route[key] != filter_route[key]){
+                return false
+            }
+        }
+        return true
+    })
     return routes
 }
 
 async function renderRoutes(routes){
     let div = document.getElementById('routes')
-    div.innerHTML = ''
-    routes.forEach(route => {
-        let div = document.getElementById('routes')
-        let p = document.createElement('p')
-        p.textContent = route
-        div.appendChild(p);
+    div.innerHTML = '<p>Route</p><p>Origin/Destination</p><p>Origin/Destination (Traditional Chinese)</p><p>Origin/Destination (Simplified Chinese)</p>'
+    routes.forEach((element, i, array) => {
+        let p1 = document.createElement('p')
+        p1.textContent = element.route
+        div.appendChild(p1);
+
+        let sym = element.dest_en.includes('(CIRCULAR)') ? '&#8634;' : '&#8596;'
+
+        let p2 = document.createElement('p')
+        p2.innerHTML = `${element.orig_en}&nbsp;${sym}&nbsp;${element.dest_en}`
+        div.appendChild(p2);
+
+        let p3 = document.createElement('p')
+        p3.innerHTML = `${element.orig_tc}&nbsp;${sym}&nbsp;${element.dest_tc}`
+        div.appendChild(p3);
+
+        let p4 = document.createElement('p')
+        p4.innerHTML = `${element.orig_sc}&nbsp;${sym}&nbsp;${element.dest_sc}`
+        div.appendChild(p4);
     });
 }
 
 async function searchRoute(query){
-    let div = document.getElementById('routes')
-    div.innerHTML = ''
     const routes = await loadAllRoutes()
-    let result = routes.filter(route => route.indexOf(query) === 0)
+    let result = routes.filter(element => element.route.indexOf(query) === 0)
     await renderRoutes(result)
 }
 
