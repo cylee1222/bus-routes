@@ -18,7 +18,7 @@ async function loadAllRoutes(){
 
 async function renderRoutes(routes){
     let div = document.getElementById('routes')
-    div.innerHTML = '<p>Route</p><p>Origin/Destination</p><p>Origin/Destination (Traditional Chinese)</p><p>Origin/Destination (Simplified Chinese)</p>'
+    div.innerHTML = '<p>Route</p><p>Origin/Destination</p><p>起點站/終點站</p><p>起点站/终点站</p>'
     routes.forEach((element, i, array) => {
         let p1 = document.createElement('p')
         p1.textContent = element.route
