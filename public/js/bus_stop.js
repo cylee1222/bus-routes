@@ -21,6 +21,7 @@ async function loadStop(max_cnt){
         const res = await fetch(`https://data.etabus.gov.hk/v1/transport/kmb/stop/${p.textContent}`).catch(err => console.error('Cannot fetch data'))
         const res_json = await res.json()
         p.textContent = `${res_json.data.name_tc}`
+        p.style.visibility = 'visible'
     }
 }
 
@@ -74,6 +75,7 @@ async function renderStops(stops){
                 p2.id = stop_cnt.toString()
                 stop_cnt++
                 p2.innerHTML = `${element.stop}`
+                p2.style.visibility = 'hidden'
                 div.appendChild(p2);
             });
             div.appendChild(document.createElement('br'))
@@ -93,6 +95,7 @@ async function renderStops(stops){
                 p2.id = stop_cnt.toString()
                 stop_cnt++
                 p2.innerHTML = `${element.stop}`
+                p2.style.visibility = 'hidden'
                 div.appendChild(p2);
             });
             div.appendChild(document.createElement('br'))
