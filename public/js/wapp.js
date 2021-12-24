@@ -1,5 +1,5 @@
 async function loadAllRoutes(){
-    const res = await fetch('https://data.etabus.gov.hk/v1/transport/kmb/route')
+    const res = await fetch('https://data.etabus.gov.hk/v1/transport/kmb/route').catch(err => console.error('Cannot fetch data'))
     const res_json = await res.json()
     const filter_route = {
         "service_type": "1",
@@ -21,7 +21,11 @@ async function renderRoutes(routes){
     div.innerHTML = '<p>Route</p><p>Origin/Destination</p><p>起點站/終點站</p><p>起点站/终点站</p>'
     routes.forEach((element, i, array) => {
         let p1 = document.createElement('p')
-        p1.textContent = element.route
+        p1.id = element.route.toLowerCase()
+        let a1 = document.createElement('a')
+        a1.href = `/${p1.id}`
+        a1.textContent = element.route
+        p1.appendChild(a1)
         div.appendChild(p1);
 
         let sym = element.dest_en.includes('(CIRCULAR)') ? '&#8634;' : '&#8596;'

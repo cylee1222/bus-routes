@@ -6,3 +6,7 @@ body {
   display: grid;
   grid-template-columns: 10% 40% repeat(auto-fill, 25%);
 }
+
+a {
+  text-decoration: none;
+}
