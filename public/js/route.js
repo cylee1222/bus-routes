@@ -59,24 +59,31 @@ async function renderStops(stops){
     while(outbound_idx + inbound_idx < outbound_arr.length + inbound_arr.length){
         
         if((outbound_cnt > 1 || inbound_cnt > 1) && ( (outbound_idx < outbound_arr.length && outbound_arr[outbound_idx].some(x => parseInt(x.service_type) == outbound_cnt)) || (inbound_idx < inbound_arr.length && inbound_arr[inbound_idx].some(x => parseInt(x.service_type) == inbound_cnt)))){
+            let h3 = document.createElement('h3')
             let p1 = document.createElement('p')
-            p1.innerHTML = `Special Departures ${special_cnt}: `
-            div.appendChild(p1);
+            p1.innerHTML = `特別班次 ${special_cnt}`
+            h3.appendChild(p1)
+            div.appendChild(h3);
             div.appendChild(document.createElement('br'))
             special_cnt++
         }
         if(outbound_idx < outbound_arr.length && outbound_arr[outbound_idx].some(x => parseInt(x.service_type) == outbound_cnt)){
             
+            let h3 = document.createElement('h3')
             let p1 = document.createElement('p')
-            p1.innerHTML = 'Outbound: '
-            div.appendChild(p1);
+            p1.innerHTML = '去程'
+            h3.appendChild(p1)
+            div.appendChild(h3);
             outbound_arr[outbound_idx].forEach((element) => {
                 let p2 = document.createElement('p')
                 p2.id = stop_cnt.toString()
                 stop_cnt++
                 p2.innerHTML = `${element.stop}`
                 p2.style.visibility = 'hidden'
-                div.appendChild(p2);
+                let a2 = document.createElement('a')
+                a2.href = `/stop/${element.stop}`
+                a2.appendChild(p2)
+                div.appendChild(a2);
             });
             div.appendChild(document.createElement('br'))
 
@@ -87,16 +94,21 @@ async function renderStops(stops){
         }
         if(inbound_idx < inbound_arr.length && inbound_arr[inbound_idx].some(x => parseInt(x.service_type) == inbound_cnt)){
 
+            let h3 = document.createElement('h3')
             let p1 = document.createElement('p')
-            p1.innerHTML = 'Inbound: '
-            div.appendChild(p1);
+            p1.innerHTML = '回程'
+            h3.appendChild(p1)
+            div.appendChild(h3);
             inbound_arr[inbound_idx].forEach((element) => {
                 let p2 = document.createElement('p')
                 p2.id = stop_cnt.toString()
                 stop_cnt++
                 p2.innerHTML = `${element.stop}`
                 p2.style.visibility = 'hidden'
-                div.appendChild(p2);
+                let a2 = document.createElement('a')
+                a2.href = `/stop/${element.stop}`
+                a2.appendChild(p2)
+                div.appendChild(a2);
             });
             div.appendChild(document.createElement('br'))
 

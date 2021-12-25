@@ -18,7 +18,7 @@ async function loadAllRoutes(){
 
 async function renderRoutes(routes){
     let div = document.getElementById('routes')
-    div.innerHTML = '<p>Route</p><p>Origin/Destination</p><p>起點站/終點站</p><p>起点站/终点站</p>'
+    div.innerHTML = '<p>Route</p><p>起點站/終點站</p><p>Origin/Destination</p>'
     routes.forEach((element, i, array) => {
         let p1 = document.createElement('p')
         p1.id = element.route.toLowerCase()
@@ -31,16 +31,13 @@ async function renderRoutes(routes){
         let sym = element.dest_en.includes('(CIRCULAR)') ? '&#8634;' : '&#8596;'
 
         let p2 = document.createElement('p')
-        p2.innerHTML = `${element.orig_en}&nbsp;${sym}&nbsp;${element.dest_en}`
+        p2.innerHTML = `${element.orig_tc}&nbsp;${sym}&nbsp;${element.dest_tc}`
         div.appendChild(p2);
 
         let p3 = document.createElement('p')
-        p3.innerHTML = `${element.orig_tc}&nbsp;${sym}&nbsp;${element.dest_tc}`
+        p3.innerHTML = `${element.orig_en}&nbsp;${sym}&nbsp;${element.dest_en}`
         div.appendChild(p3);
-
-        let p4 = document.createElement('p')
-        p4.innerHTML = `${element.orig_sc}&nbsp;${sym}&nbsp;${element.dest_sc}`
-        div.appendChild(p4);
+        
     });
 }
 

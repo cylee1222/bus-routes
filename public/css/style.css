@@ -1,12 +1,19 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+  padding: 10px;
 }
 
 .container {
   display: grid;
-  grid-template-columns: 10% 40% repeat(auto-fill, 25%);
+  grid-template-columns: 10% repeat(auto-fill, 45%);
 }
 
 a {
   text-decoration: none;
+}
+
+#map {
+  width: 400px;
+  height: 400px;
+  background: gray;
 }
