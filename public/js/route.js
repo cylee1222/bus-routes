@@ -71,9 +71,18 @@ async function renderStops(stops){
             
             let h3 = document.createElement('h3')
             let p1 = document.createElement('p')
-            p1.innerHTML = '去程'
+            let pdest = document.createElement('p')
+            const dest = outbound_arr[outbound_idx][outbound_arr[outbound_idx].length-1].stop
+            p1.innerHTML = '去程往'
+            pdest.innerHTML = `${dest}`
+            pdest.id = stop_cnt.toString()
+            stop_cnt++
+            pdest.style.visibility = 'hidden'
             h3.appendChild(p1)
+            h3.appendChild(pdest)
             div.appendChild(h3);
+            div.appendChild(document.createElement('br'))
+
             outbound_arr[outbound_idx].forEach((element) => {
                 let p2 = document.createElement('p')
                 p2.id = stop_cnt.toString()
@@ -96,9 +105,18 @@ async function renderStops(stops){
 
             let h3 = document.createElement('h3')
             let p1 = document.createElement('p')
-            p1.innerHTML = '回程'
+            let pdest = document.createElement('p')
+            const dest = inbound_arr[inbound_idx][inbound_arr[inbound_idx].length-1].stop
+            p1.innerHTML = '回程往'
+            pdest.innerHTML = `${dest}`
+            pdest.id = stop_cnt.toString()
+            stop_cnt++
+            pdest.style.visibility = 'hidden'
             h3.appendChild(p1)
+            h3.appendChild(pdest)
             div.appendChild(h3);
+            div.appendChild(document.createElement('br'))
+
             inbound_arr[inbound_idx].forEach((element) => {
                 let p2 = document.createElement('p')
                 p2.id = stop_cnt.toString()
