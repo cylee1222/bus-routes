@@ -7,7 +7,7 @@ router.get('', async (req, res) => {
 
 router.get('/:rnum', async (req, res) => {
     let rnum = req.params.rnum
-    res.render('route', {rnum: rnum.toUpperCase()})
+    res.render('route', {rnum: rnum})
 })
 
 router.get('/stop/:stop_id', async (req, res) => {
