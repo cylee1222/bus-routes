@@ -39,9 +39,35 @@ async function loadData(stop_id){
     
 }
 
+async function loadETA(stop_id){
+    let div = document.getElementById('eta')
+    let p = document.createElement('p')
+    p.innerHTML = '每一分鐘重新加載預計到達時間'
+    div.appendChild(p)
+    div.appendChild(document.createElement('br'))
+    const res = await fetch(`https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/${stop_id}`).catch(err => console.error('Cannot fetch data'))
+    const res_json = await res.json()
+    const eta = res_json.data
+    eta.forEach(element => {
+        if(element.eta != null){
+            let p = document.createElement('p')
+            if(element.service_type == '1'){
+                p.innerHTML = `${element.route}&nbsp;往${element.dest_tc}&nbsp;${element.eta.split('T')[1].substring(0,5)}&nbsp;${element.rmk_tc}`
+            }else{
+                p.innerHTML = `${element.route}&nbsp;特別班次&nbsp;往${element.dest_tc}&nbsp;${element.eta.split('T')[1].substring(0,5)}&nbsp;${element.rmk_tc}`
+            }
+            div.appendChild(p)
+        }
+    })
+}
+
 async function main(){
     let stop_id = document.getElementById('0').innerText
-    const loadStop = await loadData(stop_id)
+    const loadStop = loadData(stop_id)
+    const loadEta = loadETA(stop_id)
+    setTimeout(function(){
+        window.location.reload(1);
+     }, 60000)
 }
 
 window.onload = main
